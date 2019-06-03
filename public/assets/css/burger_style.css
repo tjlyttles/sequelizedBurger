@@ -1,0 +1,45 @@
+.jumbotron {
+    background-color: rgb(4, 79, 92);
+    background: url(/assets/img/background.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: rgb(17, 17, 17);
+    text-align: center;
+    border-bottom: 10px;
+}
+
+.display-4, .lead {
+    font-weight: 500;
+}
+
+hr {
+    background-color: black;
+}
+
+body {
+    background: url(/assets/img/background.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.container {
+    padding: 80px 0;
+}
+
+.change-eaten {
+    float: right;
+}
+
+.list-group-item {
+    background-color: rgb(43, 43, 43);
+    color: white;
+    display: list-item;
+}
+
+
+
+

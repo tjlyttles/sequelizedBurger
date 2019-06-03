@@ -1,0 +1,97 @@
+<div class="jumbotron">
+  <h1 class="display-4">Burger, Burger, Burger!</h1>
+  <p class="lead">Eat burgers. Create burgers and eat those too.</p>
+  <hr>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            
+            <ol class="list-group">
+                {{#each burgers}}
+                    {{#unless devoured}}
+                        <li class="list-group-item">
+                                {{burger_name}}               
+                            
+                            <button type="button" class="btn btn-success change-eaten" data-id="{{id}}" data-eaten="true">
+                                Devour
+                            </button>
+                        </li>
+                    {{/unless}}
+                {{/each}}
+            </ol>
+            
+        </div>
+        <div class="col">
+            <div>
+                <h2>Add a Burger</h2>
+                <form class="create-form">
+
+                    <div class="form-group">
+                        <label for="ca">Burger Name:</label>
+                        <input type="text" id="ca">
+                    </div>
+
+                    <button class="btn btn-primary" type="submit">Add Burger</button>
+                </form>
+            </div>
+        </div>
+        <div class="col">
+            <ol class="list-group">
+            {{#each burgers}}
+                {{#if devoured}}
+                    <li class="list-group-item">
+                        {{burger_name}}
+                        <button type="button" class="btn btn-info change-eaten" data-id="{{id}}" data-eaten="false">
+                            Return
+                        </button>
+                    </li>
+                {{/if}}
+            {{/each}}
+            </ol>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".create-form").on("submit", function(event) {
+    // Make sure to preventDefault on a submit event.
+        event.preventDefault();
+        
+        var newBurger = {
+        burger_name: $("#ca").val().trim(),
+        };
+
+        // Send the POST request.
+        $.ajax("/api/burgers", {
+            type: "POST",
+            data: newBurger
+        }).then(
+        function() {
+            console.log("created new burger");
+            // Reload the page to get the updated list
+            location.reload();
+        });
+    });
+
+    $(".change-eaten").on("click", function(event) {
+        var id = $(this).data("id");
+        var nowEaten = $(this).data("eaten");
+
+        var newEatenState = {
+            devoured: nowEaten
+        };
+
+        // Send the PUT request.
+        $.ajax("/api/burgers/" + id, {
+            type: "PUT",
+            data: newEatenState
+        }).then(
+        function() {
+            console.log("changed devoured to", nowEaten);
+            // Reload the page to get the updated list
+            location.reload();
+        });
+    });
+
+</script>
