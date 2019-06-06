@@ -1,27 +1,21 @@
-var orm = require('../config/orm')
-
-var burgers = {
-    all: function(cb) {
-      orm.all("burgers", function(res) {
-        cb(res);
-      });
+module.exports = function(sequelize, DataTypes) {
+  var Burgers = sequelize.define("Burgers", {
+    burger_name: {
+      type: DataTypes.STRING,
+      // AllowNull is a flag that restricts a todo from being entered if it doesn't
+      // have a text value
+      allowNull: false,
+      // len is a validation that checks that our todo is between 1 and 140 characters
+      validate: {
+        len: [1, 140]
+      }
     },
-    // The variables cols and vals are arrays.
-    create: function(cols, vals, cb) {
-      orm.create("burgers", cols, vals, function(res) {
-        cb(res);
-      });
-    },
-    update: function(objColVals, condition, cb) {
-      orm.update("burgers", objColVals, condition, function(res) {
-        cb(res);
-      });
-    },
-    delete: function(condition, cb) {
-      orm.delete("burgers", condition, function(res) {
-        cb(res);
-      });
+    devoured: {
+      type: DataTypes.BOOLEAN,
+      // defaultValue is a flag that defaults a new todos complete value to false if
+      // it isn't supplied one
+      defaultValue: false
     }
-  };
-//Exports to controller (burgers_controller.js)
-module.exports = burgers
+  });
+  return Burgers;
+};
